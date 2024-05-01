@@ -6,6 +6,14 @@ import { COLLECTION_NAMES } from "@/database/types";
 const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
 const getHash = customAlphabet(characters, 4)
 
+export const getBaseUrl = () => {
+    if (process.env.NODE_ENV === "development") {
+        return `${process.env.NEXT_PUBLIC_SITE_URL}`
+    }
+
+    return `https://${process.env.NEXT_PUBLIC_VERCEL_URL}`;
+}
+
 export default async function CreateLink(
     request: NextApiRequest,
     response: NextApiResponse
@@ -43,7 +51,7 @@ export default async function CreateLink(
         const urlInfoCollection = database.collection(COLLECTION_NAMES["url-info"])
         const hash = getHash()
         const linkExists = await urlInfoCollection.findOne({ link })
-        const shortUrl = `${process.env.NEXT_PUBLIC_URL}/${hash}`
+        const shortUrl = `${getBaseUrl()}/${hash}`
 
         if (!linkExists) {
             await urlInfoCollection.insertOne({
