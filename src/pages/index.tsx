@@ -42,7 +42,7 @@ export default function Home() {
                     onChange={(event) => setOriginalLink(event.target.value)}
                 />
 
-                <label className="Title" htmlFor="apiKey">Api Key</label>
+                <label className="Title" htmlFor="apiKey">Api Key:</label>
                 <input
                     type="text"
                     name="apiKey"
