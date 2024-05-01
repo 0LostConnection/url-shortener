@@ -79,6 +79,7 @@ h1 {
 }
 
 .Form button {
+    margin-top: 10px;
     padding: 7px;
     border-radius: 5px;
     border: none;
@@ -103,20 +104,17 @@ h1 {
 .LinkContainer {
     margin-top: 15px;
     display: flex;
+    align-items: center;
 }
 
 .LinkContainer p {
     margin-right: 10px;
 }
 
-a {
-    text-decoration: none;
+.Link:hover {
+    cursor: pointer;
 }
 
-a:visited {
-    color: #fff;
-    text-decoration: none;
-}
 
 @keyframes moveUpDown {
     0% {

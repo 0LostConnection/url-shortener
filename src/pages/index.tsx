@@ -29,6 +29,12 @@ export default function Home() {
         }
     }
 
+    const copyToClipboard = async () => {
+        await navigator.clipboard.writeText(shortenedLink);
+        alert('Link copiado!');
+    }
+
+
     return (
         <div className="Container">
             <h1>Encurtador de <u>URL</u></h1>
@@ -54,7 +60,8 @@ export default function Home() {
             </form>
 
             <div className="LinkContainer">
-                <p className="Title">Link Encurtado:</p> <p className="MoveUpDown"><a href={shortenedLink}>{shortenedLink}</a></p>
+                <p className="Title">Link Encurtado:</p>
+                <p className="MoveUpDown Link" onClick={() => copyToClipboard()}>{shortenedLink}</p>
             </div>
         </div>
     )
