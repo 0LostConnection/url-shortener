@@ -43,7 +43,7 @@ export default async function CreateLink(
         const urlInfoCollection = database.collection(COLLECTION_NAMES["url-info"])
         const hash = getHash()
         const linkExists = await urlInfoCollection.findOne({ link })
-        const shortUrl = `${process.env.HOST}/${hash}`
+        const shortUrl = `${process.env.NEXT_PUBLIC_URL}/${hash}`
 
         if (!linkExists) {
             await urlInfoCollection.insertOne({
