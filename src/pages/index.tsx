@@ -3,6 +3,7 @@ import React, { useState } from "react"
 export default function Home() {
     const [originalLink, setOriginalLink] = useState("")
     const [shortenedLink, setShortenedLink] = useState("")
+    const [apiKey, setApiKey] = useState("")
 
     const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault()
@@ -12,16 +13,17 @@ export default function Home() {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
-                    "api-key": process.env.API_KEY as string
+                    "api-key": apiKey
                 },
                 body: JSON.stringify({
                     link: originalLink as string
                 }),
             })
             const response = await rawResponse.json()
-            console.log(response.data)
 
-            setShortenedLink(response.data.shortUrl)
+            if (response.code === 401) return alert("A Chave da API entregue é inválida!")
+
+            setShortenedLink(response.data?.shortUrl || "??")
         } catch (error) {
             console.error(error)
         }
@@ -38,6 +40,15 @@ export default function Home() {
                     id="originalLink"
                     value={originalLink}
                     onChange={(event) => setOriginalLink(event.target.value)}
+                />
+
+                <label className="Title" htmlFor="apiKey">Api Key</label>
+                <input
+                    type="text"
+                    name="apiKey"
+                    id="apiKey"
+                    value={apiKey}
+                    onChange={(event) => setApiKey(event.target.value)}
                 />
                 <button type="submit">ENCURTAR!</button>
             </form>
